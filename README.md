@@ -302,3 +302,4 @@ clarusway_blog_proj (folder)
 - [Python Django Example](https://realpython.com/get-started-with-django-1/)
 
 - [AWS CLI Command Reference](https://docs.aws.amazon.com/cli/latest/index.html)
+# Capstone-Project-Blog-Page-App--Django--on-AWS-Environment

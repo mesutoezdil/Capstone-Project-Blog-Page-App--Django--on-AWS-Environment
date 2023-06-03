@@ -187,7 +187,7 @@ apt-get update -y
 apt-get install git -y
 apt-get install python3 -y
 cd /home/ubuntu/
-TOKEN=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
+TOKEN=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
 git clone https://$TOKEN@github.com/mesutoezdil/aws-capstone.git
 cd /home/ubuntu/test-cap-project
 apt install python3-pip -y
@@ -272,13 +272,13 @@ apt-get update -y
 apt-get install git -y
 apt-get install python3 -y
 cd /home/ubuntu/
-TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-git clone https://$TOKEN@<YOUR PRIVATE REPO URL>
-cd /home/ubuntu/<YOUR PRIVATE REPO NAME>
+TOKEN=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
+git clone https://$TOKEN@github.com/mesutoezdil/Capstone-Project-Blog-Page-App--Django--on-AWS-Environment.git
+cd /home/ubuntu/Capstone-Project-Blog-Page-App-(Django)-on-AWS-Environment
 apt install python3-pip -y
 apt-get install python3.7-dev libmysqlclient-dev -y
 pip3 install -r requirements.txt
-cd /home/ubuntu/<YOUR PRIVATE REPO NAME>/src
+cd /home/ubuntu/Capstone-Project-Blog-Page-App-(Django)-on-AWS-Environment/src
 python3 manage.py collectstatic --noinput
 python3 manage.py makemigrations
 python3 manage.py migrate
