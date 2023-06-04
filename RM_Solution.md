@@ -2,27 +2,28 @@
 
 ## Description
 
+---
 The Clarusway Blog Page Application aims to deploy blog application as a web application written Django Framework on AWS Cloud Infrastructure. This infrastructure has Application Load Balancer with Auto Scaling Group of Elastic Compute Cloud (EC2) Instances and Relational Database Service (RDS) on defined VPC. Also, The Cloudfront and Route 53 services are located in front of the architecture and manage the traffic in secure. User is able to upload pictures and videos on own blog page and these are kept on S3 Bucket. This architecture will be created by Firms DevOps Guy.
 
-Arkadaşlar herkese merhabalar yarın başlayacağımız capstone projemiz reponuza yüklendi, fırsatı olanlar dersten önce inceleyebilirler. Projeden özet olarak bahsedecek olursak müşterimizin django framework'ü ile yazılmış blog sayfası uygulaması bulunmaktadır. Kullanıcılar blog sayfası uygulamasında username ve password oluşturarak giriş yaparak fotoğraf ve video yükleyebilmektedirler. Müşterimizin isteği doğrultusunda;
+Projeden özet olarak bahsedecek olursak müşterimizin django framework'ü ile yazılmış blog sayfası uygulaması bulunmaktadır. Kullanıcılar blog sayfası uygulamasında username ve password oluşturarak giriş yaparak fotoğraf ve video yükleyebilmektedirler. Müşterimizin isteği doğrultusunda;
 Kullanıcılar tarafından yüklenen foto ve videolar s3 bucketta tutulacaktır. Yüklenen her foto ve video olayı ile birlikte lambda fonksiyonu ile tetiklenme sağlanacak ve yükleme yapan bilgileri ve zamanı dynamo tablosuna işlenecektir. Kullanıcı ve şifre bilgileri rds de tutulacaktır. Uygulamaların çalışacağı ec2 lar önüne load balancer dizayn edilecek aynı zamanda autoscaling kullanılacaktır. Aynı zamanda dünya üzerinde tüm kullanıcılara imkan sağlamak için ve http/https trafiği üzerinden uygulamaya erişim sağlamak için cloudfront servisi kullanılacaktır. Tabi cloudfront servisi domain name ini müşterimize sunmak yerine daha yakışıklı firmasına yakışır bir domain name ile sunmak üzere route 53 servisi kullanılacak ve aynı zamanda failover senaryosu ile uygulamaya erişilemediği zamanlarda alternatif bir s3 website hosting e yönlendirme yapılacaktır. Genel olarak mimarimiz bu şekilde olacaktır. Mimariyi oluştururken izleyeceğimiz adımlar ise şu şekilde olacaktır:
 1.Müşterimiz için gerekli VPC ve componentlerinin oluşturulması.
-2.Security grouplarının oluşturulması(EC2+ALB+RDS+NAT Instance)
+2.4 adet Security grouplarının oluşturulması(EC2+ALB+RDS+NAT Instance)
 3.RDS oluşturulması
-4.S3 bucket larının oluşturulması(failover+foto ve videoların tutulacağı bucket)
+4.2 adet S3 bucket larının oluşturulması(failover+foto ve videoların tutulacağı bucket)
 5.Uygulamanın çalıştırılması için userdata hazırlığı
 6.RDS ve s3 bucket bilgilerinin envanter dosyasına işlenmesi
 7.Public subnette NAT Instance oluşturulması
 8.Autoscaling için template oluşturulması
 9.HTTPS için sertfika oluşturulması
-10.ALB oluşturulması
+10.ALB oluşturulması (olusturlan templateytten)
 11.Autoscaling oluşturulması
 12.ALB önüne cloudfront dizayn edilmesi
 13.Route53 te failover senaryosu oluşturulması
 14.Dynamodb tablosu oluşturulması
 15.Lambda function oluşturulması
 16.Lambda function için trigger işlemi
-Evet 2 gün içerisinde bu mimariyi konsoldan ayağa kaldırmaya çalışacağız, umarım açıklayıcı olmuştur, derste görüşmek üzere....
+---
 
 ## Steps to Solution
   
@@ -30,13 +31,13 @@ Evet 2 gün içerisinde bu mimariyi konsoldan ayağa kaldırmaya çalışacağı
         
     ### VPC
     - Create VPC. 
-        Resources to create:VPC only
+        Resources to create: VPC only
         create a vpc named `aws_capstone-VPC` IPV4 CIDR manual input CIDR blok is `90.90.0.0/16` 
         no ipv6 CIDR block
         tenancy: default
     - select `aws_capstone-VPC` VPC, click `Actions`, Edit VPC settings and `enable DNS hostnames` for the `aws_capstone-VPC`, save. 
 
-    ## Subnets
+    ## (after VPC we need) Subnets (Whether they are private or public is determined by the internet gateway, the names are just for clarity)
     - Create Subnets
         - Create a public subnet named `aws_capstone-public-subnet-1A` under the vpc aws_capstone-VPC in AZ us-east-1a with 90.90.10.0/24
         - Create a private subnet named `aws_capstone-private-subnet-1A` under the vpc aws_capstone-VPC in AZ us-east-1a with 90.90.11.0/24
@@ -45,19 +46,19 @@ Evet 2 gün içerisinde bu mimariyi konsoldan ayağa kaldırmaya çalışacağı
 
     - Set `auto-assign IP` up for public subnets. Select each public subnets and click Modify "auto-assign IP settings" and select "Enable auto-assign public IPv4 address" 
 
-    ## Internet Gateway
+    ## Internet Gateway (for public subnets!, for exit from VPC to Internet)
 
     - Click Internet gateway section on left hand side. Create an internet gateway named `aws_capstone-IGW` and create.
 
-    - ATTACH the internet gateway `aws_capstone-IGW` to the newly created VPC `aws_capstone-VPC`. Go to VPC and select newly created VPC and click action ---> Attach to VPC ---> Select `aws_capstone-VPC` VPC 
+    - ATTACH (!) the internet gateway `aws_capstone-IGW` to the newly created VPC `aws_capstone-VPC`. Go to VPC and select newly created VPC and click action ---> Attach to VPC ---> Select `aws_capstone-VPC` VPC 
 
     ## Route Table
     - Go to route tables on left hand side. We have already one route table as main route table. Change it's name as `aws_capstone-public-RT` 
     - Create a route table and give a name as `aws_capstone-private-RT`.
-    - Select `aws_capstone-public-RT', Routes--->  Edit Routes, Add a route to `aws_capstone-public-RT` in which destination 0.0.0.0/0 (any network, any host) to target the internet gateway `aws_capstone-IGW` in order to allow access to the internet.
-    - Select the 'aws_capstone-public-RT', click subnet associations ---> Edit subnet associations--->
+    - Select `aws_capstone-public-RT', Routes--->  Edit Routes, Add a route to `aws_capstone-public-RT` in which destination 0.0.0.0/0 (any network, any host) to target "the internet gateway" `aws_capstone-IGW` in order to allow access to the internet.
+    - Select the 'aws_capstone-public-RT', click >subnet associations ---> Edit subnet associations--->
     click 'aws_capstone-public-subnet-1A' and 'aws_capstone-public-subnet-1B'---> Save associations
-    - Select the'aws_capstone-private-RT', click subnet associations ---> Edit subnet associations--->
+    - Select the'aws_capstone-private-RT', click >subnet associations ---> Edit subnet associations--->
     click 'aws_capstone-private-subnet-1A' and 'aws_capstone-private-subnet-1B'---> Save associations 
         
     ## Endpoint
