@@ -203,25 +203,24 @@ save changes
 Please 
 ```bash
 #!/bin/bash
-
 apt-get update -y
 apt-get install git -y
 apt-get install python3 -y
 cd /home/ubuntu/
-TOKEN=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
-git clone https://$TOKEN@github.com/mesutoezdil/aws-capstone.git
-cd /home/ubuntu/test-cap-project
+TOKEN=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
+git clone https://$TOKEN@github.com/mesutoezdil/Capstone-Project-Blog-Page-App--Django--on-AWS-Environment
+cd /home/ubuntu/Capstone-Project-Blog-Page-App-(Django)-on-AWS-Environment
 apt install python3-pip -y
 apt-get install python3.7-dev libmysqlclient-dev -y
 pip3 install -r requirements.txt
-cd /home/ubuntu/test-cap-project/src
+cd /home/ubuntu/Capstone-Project-Blog-Page-App-(Django)-on-AWS-Environment/src
 python3 manage.py collectstatic --noinput
 python3 manage.py makemigrations
 python3 manage.py migrate
 python3 manage.py runserver 0.0.0.0:80
 ```
 
-## Step 8: Write RDS database endpoint and S3 Bucket name in settings file given by Clarusway Fullstack Developer team and push your application into your own public repo on Github
+## Step 8: Write RDS database endpoint and S3 Bucket name in settings file given by Clarusway Fullstack Developer team and push your application into your own public repo on Github (go "settings.py" - Line 91 and 146)
 Please follow and apply the instructions in the developer_notes.txt.
 ```text
 - Movie and picture files are kept on S3 bucket named aws_capstone_S3_<name>_Blog as object. You should create an S3 bucket and write name of it on "/src/cblog/settings.py" file as AWS_STORAGE_BUCKET_NAME variable. In addition, you must assign region of S3 as AWS_S3_REGION_NAME variable
@@ -234,6 +233,7 @@ Please follow and apply the instructions in the developer_notes.txt.
 ```
 - Please check if this userdata is working or not. to do this create new instance in public subnet and show to students that it is working
 
+Please check yout Github token and go to "userdata.sh" and correct your token - line 6, and change your line 8 there
 ## Step 9: Create NAT Instance in Public Subnet
 To launch NAT instance, go to the EC2 console and click the create button.
 

@@ -1,11 +1,10 @@
 #!/bin/bash
-
 apt-get update -y
 apt-get install git -y
 apt-get install python3 -y
 cd /home/ubuntu/
-TOKEN=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
-git clone https://$TOKEN@github.com/mesutoezdil/Capstone-Project-Blog-Page-App--Django--on-AWS-Environment.git
+TOKEN=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
+git clone https://$TOKEN@github.com/mesutoezdil/Capstone-Project-Blog-Page-App--Django--on-AWS-Environment
 cd /home/ubuntu/Capstone-Project-Blog-Page-App-(Django)-on-AWS-Environment
 apt install python3-pip -y
 apt-get install python3.7-dev libmysqlclient-dev -y
