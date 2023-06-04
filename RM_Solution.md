@@ -639,4 +639,4 @@ def lambda_handler(event, context):
 
 - WE ALL SET
 
-- Congratulations!! You have finished your AWS Capstone Project
+- Congratulations!! You have finished your AWS Capstone Project...
