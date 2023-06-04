@@ -332,7 +332,7 @@ Listeners and Routing   :
 Listener HTTPS:443
 Protocol HTTP ---> Port 443 ---> Default Action Create Target Group (New Window pops up)
     - Target Type         : Instance
-    - Name                : awscapstoneTargetGroup-okt
+    - Name                : awscapstoneTargetGroup
     - Protocol            : HTTP
     - Port                : 80
     - Protocol version    : HTTP1
