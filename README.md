@@ -1,8 +1,8 @@
-# Project-503 : Blog Page Application (Django) deployed on AWS Application Load Balancer with Auto Scaling, S3, Relational Database Service(RDS), VPC's Components, Lambda, DynamoDB and Cloudfront with Route 53
+# Projekt-503: Blog Page Application (Django), bereitgestellt auf AWS Application Load Balancer mit Auto Scaling, S3, Relational Database Service (RDS), VPC's Components, Lambda, DynamoDB und Cloudfront mit Route 53
 
-## Description
+## Die Beschreibung
 
-The Clarusway Blog Page Application aims to deploy blog application as a web application written Django Framework on AWS Cloud Infrastructure. This infrastructure has Application Load Balancer with Auto Scaling Group of Elastic Compute Cloud (EC2) Instances and Relational Database Service (RDS) on defined VPC. Also, The Cloudfront and Route 53 services are located in front of the architecture and manage the traffic in secure. User is able to upload pictures and videos on own blog page and these are kept on S3 Bucket. This architecture will be created by Firms DevOps Guy.
+Die Clarusway Blog-Seiten-Anwendung zielt darauf ab, eine Blog-Applikation als Web-Anwendung, die mit dem Django-Framework geschrieben wurde, in der AWS-Cloud-Infrastruktur bereitzustellen. Diese Infrastruktur verfügt über Application Load Balancer mit automatisch skalierender Gruppe von Elastic Compute Cloud (EC2) Instanzen und Relational Database Service (RDS) auf definierten VPC. Außerdem befinden sich die Dienste Cloudfront und Route 53 vor der Architektur und verwalten den Datenverkehr auf sichere Weise. Benutzer können Bilder und Videos auf ihre eigene Blog-Seite hochladen und diese werden in einem S3-Bucket gespeichert. Diese Architektur wird von Firmen DevOps Guy erstellt werden.
 
 ## Problem Statement
 
