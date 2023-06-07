@@ -4,27 +4,6 @@
 
 ---
 The Clarusway Blog Page Application aims to deploy blog application as a web application written Django Framework on AWS Cloud Infrastructure. This infrastructure has Application Load Balancer with Auto Scaling Group of Elastic Compute Cloud (EC2) Instances and Relational Database Service (RDS) on defined VPC. Also, The Cloudfront and Route 53 services are located in front of the architecture and manage the traffic in secure. User is able to upload pictures and videos on own blog page and these are kept on S3 Bucket. This architecture will be created by Firms DevOps Guy.
-
-Projeden özet olarak bahsedecek olursak müşterimizin django framework'ü ile yazılmış blog sayfası uygulaması bulunmaktadır. Kullanıcılar blog sayfası uygulamasında username ve password oluşturarak giriş yaparak fotoğraf ve video yükleyebilmektedirler. Müşterimizin isteği doğrultusunda;
-Kullanıcılar tarafından yüklenen foto ve videolar s3 bucketta tutulacaktır. Yüklenen her foto ve video olayı ile birlikte lambda fonksiyonu ile tetiklenme sağlanacak ve yükleme yapan bilgileri ve zamanı dynamo tablosuna işlenecektir. Kullanıcı ve şifre bilgileri rds de tutulacaktır. Uygulamaların çalışacağı ec2 lar önüne load balancer dizayn edilecek aynı zamanda autoscaling kullanılacaktır. Aynı zamanda dünya üzerinde tüm kullanıcılara imkan sağlamak için ve http/https trafiği üzerinden uygulamaya erişim sağlamak için cloudfront servisi kullanılacaktır. Tabi cloudfront servisi domain name ini müşterimize sunmak yerine daha yakışıklı firmasına yakışır bir domain name ile sunmak üzere route 53 servisi kullanılacak ve aynı zamanda failover senaryosu ile uygulamaya erişilemediği zamanlarda alternatif bir s3 website hosting e yönlendirme yapılacaktır. Genel olarak mimarimiz bu şekilde olacaktır. Mimariyi oluştururken izleyeceğimiz adımlar ise şu şekilde olacaktır:
-1.Müşterimiz için gerekli VPC ve componentlerinin oluşturulması.
-2.4 adet Security grouplarının oluşturulması(EC2+ALB+RDS+NAT Instance)
-3.RDS oluşturulması
-4.2 adet S3 bucket larının oluşturulması(failover+foto ve videoların tutulacağı bucket)
-5.Uygulamanın çalıştırılması için userdata hazırlığı
-6.RDS ve s3 bucket bilgilerinin envanter dosyasına işlenmesi
-7.Public subnette NAT Instance oluşturulması
-8.Autoscaling için template oluşturulması
-9.HTTPS için sertfika oluşturulması
-10.ALB oluşturulması (olusturlan templateytten)
-11.Autoscaling oluşturulması
-12.ALB önüne cloudfront dizayn edilmesi
-13.Route53 te failover senaryosu oluşturulması
-14.Dynamodb tablosu oluşturulması
-15.Lambda function oluşturulması
-16.Lambda function için trigger işlemi
----
-
 ## Steps to Solution
   
 ### Step 1: Create dedicated VPC and whole components
