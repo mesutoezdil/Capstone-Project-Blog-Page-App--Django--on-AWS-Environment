@@ -4,7 +4,7 @@
 
 Die Clarusway Blog-Seiten-Anwendung zielt darauf ab, eine Blog-Applikation als Web-Anwendung, die mit dem Django-Framework geschrieben wurde, in der AWS-Cloud-Infrastruktur bereitzustellen. Diese Infrastruktur verfügt über Application Load Balancer mit automatisch skalierender Gruppe von Elastic Compute Cloud (EC2) Instanzen und Relational Database Service (RDS) auf definierten VPC. Außerdem befinden sich die Dienste Cloudfront und Route 53 vor der Architektur und verwalten den Datenverkehr auf sichere Weise. Benutzer können Bilder und Videos auf ihre eigene Blog-Seite hochladen und diese werden in einem S3-Bucket gespeichert. Diese Architektur wird von Firmen DevOps Guy erstellt werden.
 
-## Problem Statement
+## Problemstellung
 
 ![Project_004](capstone.jpg)
 
